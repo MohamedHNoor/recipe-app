@@ -1,0 +1,62 @@
+<div class="container border border-dark border-2 mt-3 rounded p3">
+<h2 class="text-center pb-3 fw-bold fs-1"><%= @recipe.name %></h2>
+  <div>
+    <div class="row">
+      <div class="col-9 fs-5">
+        <p>
+          <strong>Preparation Time:&nbsp;</strong>
+          <%= @recipe.preparation_time %> hour
+        </p>
+        <p>
+          <strong>Cooking Time:&nbsp;</strong>
+          <%= @recipe.cooking_time %> hour
+        </p>
+        <p>
+          <strong>steps go here...</strong>
+        </p>
+      </div>
+
+      <div class="col-3">
+        <div>
+          <%= form_with(model: @recipe) do |form| %>
+            Public: <%= form.check_box :public, :value => @recipe.public, disabled: true %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="d-flex justify-content-between pb-4">
+        <%= link_to 'Generate Shopping List', '#', class: "btn btn-outline-secondary"  %>
+        <%= link_to 'Add Ingredient', '#', class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="container">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr class="text-center">
+          <th>Food</th>
+          <th>Quantity</th>
+          <th>Value</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @recipe.recipe_food.each do |recipe_food| %>
+          <tr class="text-center">
+            <td colspan="4"><%= recipe_food.food.name %></td>
+            <td><%= recipe_food.quantity %> <%= recipe_food.food.measurement_unit%> </td>
+            <td><%= recipe_food.food.price * recipe_food.quantity%></td>
+            <td>
+              <%= link_to 'Delete', recipe_recipe_food_path(@recipe, recipe_food), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-secondary" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
