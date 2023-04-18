@@ -3,8 +3,7 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def show 
-  end
+  def show; end
 
   def new
     @user = User.new
@@ -13,14 +12,13 @@ class UsersController < ApplicationController
   def created
     @user = User.new(user_params)
     respond_to do |format|
-     if @user.save
-      format.html {
-        redirect_to @user, notice: 'User was successfully created.'
-      }
-    else
-      format.html {
-        render :new, status: :unprocessable_entity
-      }
+      if @user.save
+        format.html do
+          redirect_to @user, notice: 'User was successfully created.'
+        end
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -28,9 +26,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
     respond_to do |format|
-      format.html {
-        redirect_to users_path, notice: 'User was successfully destroyed.'
-      }
+      format.html { redirect_to users_path, notice: 'User was successfully destroyed.' }
     end
   end
 
