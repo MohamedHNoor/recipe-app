@@ -10,8 +10,6 @@ class FoodsController < ApplicationController
   def destroy
     @food = Food.find(params[:id])
     @food.destroy
-  
-    
   end
 
   def new
@@ -20,8 +18,9 @@ class FoodsController < ApplicationController
 
   def create
     @food = Food.new(food_params)
-  
+
     return unless @food.save
+
     redirect_to foods_path, notice: 'Food was successfully created.'
   end
 
