@@ -1,0 +1,31 @@
+<div>
+  <h3><%= link_to recipe.name, recipe %></h3>
+
+  <p>
+    <strong>Description:</strong>
+    <%= recipe.description %>
+  </p>
+
+  <p>
+    <strong>Preparation Time:</strong>
+    <%= recipe.preparation_time %> minutes
+  </p>
+
+  <p>
+    <strong>Cooking Time:</strong>
+    <%= recipe.cooking_time %> minutes
+  </p>
+
+  <p>
+    <strong>Public:</strong>
+    <%= recipe.public ? "Public" : "Private" %>
+  </p>
+
+  <p>
+    <strong>User:</strong>
+    <%= recipe.user.name %>
+  </p>
+
+  <%= button_to "Delete", recipe, method: :delete %>
+  <p><%= link_to "Back", recipes_path %></p>
+</div>
