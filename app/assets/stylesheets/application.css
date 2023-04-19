@@ -13,3 +13,31 @@
  *= require_tree .
  *= require_self
  */
+
+/* Set up the overall header container */
+header {
+  background-color: gainsboro;
+  color: black;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Set up the logo container */
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Set up the navigation container */
+nav {
+  display: flex;
+  align-items: center;
+}
+
+/* Set up the navigation links */
+nav a {
+  color: black;
+  text-decoration: none;
+  margin: 0 10px;
+}

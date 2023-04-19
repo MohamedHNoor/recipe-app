@@ -1,5 +1,5 @@
 <h1>Food List</h1>
-<%= link_to "Add Food", new_food_path, class: "button" %>
+<%= link_to "Add Food", new_user_food_path(@user), class: "button" %>
 <table>
   <thead>
     <tr>
@@ -17,9 +17,11 @@
         <td><%= food.measurement_unit %></td>
         <td><%= food.price %></td>
         <td><%= food.quantity %></td>
-        <td>
-          <%= button_to "Delete", food_path(food), method: :delete, data: { confirm: "Are you sure?" } %>
-        </td>
+        <% if current_user.id == food.user_id %>
+          <td>
+            <%= button_to "Delete", user_food_path(@user, food), method: :delete, data: { confirm: "Are you sure?" } %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
