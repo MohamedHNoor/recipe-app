@@ -15,6 +15,24 @@
   </head>
 
   <body>
+    <header>
+      <div class="logo">RailsBlog</div>
+      <nav>
+        <% if current_user %>
+          <ul>
+            <li><%= link_to "Edit Account", edit_user_registration_path %></li>
+            <li><%= button_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+          </ul>
+        <% else %>
+          <ul>
+            <li><%= link_to "Sign Up", new_user_registration_path %></li>
+            <li><%= link_to "Sign In", new_user_session_path %></li>
+          </ul>
+        <% end %>
+      </nav>
+    </header>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
 </html>

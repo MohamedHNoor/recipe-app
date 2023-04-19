@@ -1,6 +1,7 @@
 class FoodsController < ApplicationController
   def index
     @foods = Food.all
+    @user = current_user
   end
 
   def show
@@ -18,10 +19,11 @@ class FoodsController < ApplicationController
 
   def create
     @food = Food.new(food_params)
+    @food.user_id = current_user.id
 
     return unless @food.save
 
-    redirect_to foods_path, notice: 'Food was successfully created.'
+    redirect_to root_path, notice: 'Food was successfully created.'
   end
 
   private
