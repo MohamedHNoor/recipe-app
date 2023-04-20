@@ -1,11 +1,21 @@
 class RecipesController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:public_recipes, :shopping_list]
+
   def index
-    @recipes = Recipe.all
+    if params[:user_id].present?
+      @recipes = Recipe.includes(recipe_foods: [:food]).order(:id)
+    else
+      @recipes = Recipe.all
+    end
   end
 
   def show
     @recipe = Recipe.find(params[:id])
-    @recipe_food = @recipe.recipe_food
+    if @recipe.nil?
+      return
+    else
+      @recipe_foods = @recipe.recipe_foods
+    end
   end
 
   def new
@@ -14,9 +24,11 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = Recipe.new(recipe_params)
+    @recipe.user_id = current_user.id
+
     respond_to do |format|
       if @recipe.save
-        format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
+        format.html { redirect_to user_recipes_path, notice: 'Recipe was successfully created.' }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -25,11 +37,14 @@ class RecipesController < ApplicationController
 
   def public_recipes
     @recipes = Recipe.includes(:user, recipe_foods: [:food]).where(public: true).order(:id)
-    @total_price = []
-    @recipe.each do |recipe|
-      @total_price << recipe.recipe_foods.inject(0) { |sum, recipe_food| sum + (recipe_food.food.price * recipe_food.quantity) }
+    @total_price = {}
+    @recipes.each do |recipe|
+      total_price = recipe.recipe_foods.inject(0) { |sum, e| sum + (e.food.price * e.quantity) }
+      @total_price[recipe.id] = total_price
     end
   end
+  
+  
 
   def shopping_list
     @ingredient = RecipeFood.includes(:food).where(recipe_id: params[:recipe_id])
@@ -40,7 +55,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @recipe.destroy
     respond_to do |format|
-      format.html { redirect_to recipes_path, notice: 'Recipe was successfully destroyed.' }
+      format.html { redirect_to user_recipe_path, notice: 'Recipe was successfully destroyed.' }
     end
   end
 
