@@ -1,0 +1,12 @@
+<div id="<%= dom_id recipe %>" class="border border-2 mt-3">
+  <div class="d-flex align-items-center justify-content-between p-3">
+    <div>
+      <h2><%= recipe.name %></h2>
+      <p>By: <%= recipe.user.name %></p>
+    </div>
+    <div>
+      <p>Total Food Items: <%=recipe.recipe_foods.length%></p>
+      <p>Total Price: $<%= @total_price[recipe.id] %></p>
+    </div>
+  </div>
+</div>
