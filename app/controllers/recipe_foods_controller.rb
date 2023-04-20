@@ -3,8 +3,7 @@ class RecipeFoodsController < ApplicationController
     @recipe_foods = Food.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @recipe_food = RecipeFood.new
@@ -17,7 +16,10 @@ class RecipeFoodsController < ApplicationController
 
     respond_to do |format|
       if @recipe_food.save
-        format.html { redirect_to user_recipe_path(user_id: @recipe.user_id, id: @recipe.id), notice: 'Recipe food was successfully created.' }
+        format.html do
+          redirect_to user_recipe_path(user_id: @recipe.user_id, id: @recipe.id),
+                      notice: 'Recipe food was successfully created.'
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
       end

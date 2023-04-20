@@ -1,21 +1,19 @@
 class RecipesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:public_recipes, :shopping_list]
+  skip_before_action :authenticate_user!, only: %i[public_recipes shopping_list]
 
   def index
-    if params[:user_id].present?
-      @recipes = Recipe.includes(recipe_foods: [:food]).order(:id)
-    else
-      @recipes = Recipe.all
-    end
+    @recipes = if params[:user_id].present?
+                 Recipe.includes(recipe_foods: [:food]).order(:id)
+               else
+                 Recipe.all
+               end
   end
 
   def show
     @recipe = Recipe.find(params[:id])
-    if @recipe.nil?
-      return
-    else
-      @recipe_foods = @recipe.recipe_foods
-    end
+    return if @recipe.nil?
+
+    @recipe_foods = @recipe.recipe_foods
   end
 
   def new
@@ -43,8 +41,6 @@ class RecipesController < ApplicationController
       @total_price[recipe.id] = total_price
     end
   end
-  
-  
 
   def shopping_list
     @ingredient = RecipeFood.includes(:food).where(recipe_id: params[:recipe_id])
