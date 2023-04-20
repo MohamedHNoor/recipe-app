@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <a class="navbar-brand" href="/">Recipe App</a>
+    <div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <% if current_user %>
+        <li class="nav-item"> 
+          <%= link_to "Food", root_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item"> <%= link_to "Recipes", user_recipes_path(user_id: current_user.id), class: "nav-link" %></li>
+        <li class="nav-item"> <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-link" %></li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Public Recipe", public_recipes_path, class: "nav-link"  %>
+          </li>
+          <li class="nav-item"> <%= link_to "Sign Up", new_user_registration_path, class: "nav-link"  %></li>
+          <li class="nav-item"> <%= link_to "Sign In", new_user_session_path, class: "nav-link"  %></li>
+        <% end %>
+      </ul>
+    </div>
+    </div>
+  </div>
+</nav>

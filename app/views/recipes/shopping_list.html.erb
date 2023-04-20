@@ -1,0 +1,44 @@
+ <div class="container pb-2">
+    <h2 class="text-center">
+       Shopping List
+    </h2>
+
+    <div class="row text-center">
+       <div class="col-6 fw-bold">
+           Amount of food items to buy: <%= @ingredient.length %>
+       </div>
+       <div class="col-6 fw-bold">
+           Total value of food needed: $<%= @total_price %>
+       </div>
+    </div>
+ </div>
+ <div class="container">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr class="text-center">
+          <th>Food</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @ingredient.length === 0 %>
+        <tr class="text-center fw-bold">
+          <td colspan="4">
+            <i class="far fa-frown"></i>
+            <span>No ingredients found</span>
+          </td>
+        </tr>
+        <% else %>
+          <% @ingredient.each do |i| %>
+            <tr class="text-center">
+              <td><%= i.food.name %></td>
+              <td><%= i.quantity %> <%= i.food.measurement_unit %></td>
+              <td><%= i.food.price * i.quantity %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

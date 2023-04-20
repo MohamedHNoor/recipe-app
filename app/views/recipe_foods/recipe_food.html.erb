@@ -1,0 +1,8 @@
+<tr id="<%= dom_id recipe_food %>">
+  <td><%= recipe_food.food.name %></td>
+  <td><%= recipe_food.food.quantity %></td>
+  <td><%= recipe_food.food.price * recipe_food.quantity %></td>
+  <% if user_signed_in? %>
+    <td><%= link_to "Remove", user_recipe_recipe_food_path(current_user, recipe_food.recipe, recipe_food), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger" %></td>
+  <% end %>
+</tr>

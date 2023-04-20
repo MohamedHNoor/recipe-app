@@ -1,1 +1,13 @@
-<h1>recipe_foods</h1>
+<h1>Recipe Foods</h1>
+
+<table>
+  <tr>
+    <th>Food</th>
+    <th>Quantity</th>
+    <th>Price</th>
+    <th>Action</th>
+  </tr>
+  <% @recipe_foods.each do |recipe_food| %>
+    <%= render recipe_food %>
+  <% end %>
+</table>
