@@ -23,6 +23,19 @@ class RecipesController < ApplicationController
     end
   end
 
+  def public_recipes
+    @recipes = Recipe.includes(:user, recipe_foods: [:food]).where(public: true).order(:id)
+    @total_price = []
+    @recipe.each do |recipe|
+      @total_price << recipe.recipe_foods.inject(0) { |sum, recipe_food| sum + (recipe_food.food.price * recipe_food.quantity) }
+    end
+  end
+
+  def shopping_list
+    @ingredient = RecipeFood.includes(:food).where(recipe_id: params[:recipe_id])
+    @total_price = @ingredient.inject(0) { |sum, recipe_food| sum + (recipe_food.food.price * recipe_food.quantity) }
+  end
+
   def destroy
     @recipe = Recipe.find(params[:id])
     @recipe.destroy

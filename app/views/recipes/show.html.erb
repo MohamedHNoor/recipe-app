@@ -27,7 +27,7 @@
 
     <div class="row">
       <div class="d-flex justify-content-between pb-4">
-        <%= link_to 'Generate Shopping List', '#', class: "btn btn-outline-secondary"  %>
+        <%= link_to 'Generate Shopping List', shopping_list_path(@recipe.id), class: "btn btn-outline-secondary"  %>
         <%= link_to 'Add Ingredient', '#', class: "btn btn-outline-secondary" %>
       </div>
     </div>
@@ -47,11 +47,11 @@
       <tbody>
         <% @recipe.recipe_food.each do |recipe_food| %>
           <tr class="text-center">
-            <td colspan="4"><%= recipe_food.food.name %></td>
+            <td><%= recipe_food.food.name %></td>
             <td><%= recipe_food.quantity %> <%= recipe_food.food.measurement_unit%> </td>
             <td><%= recipe_food.food.price * recipe_food.quantity%></td>
             <td>
-              <%= link_to 'Delete', recipe_recipe_food_path(@recipe, recipe_food), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-secondary" %>
+              <%= button_to 'Delete', recipe_food, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-secondary" %>
             </td>
           </tr>
         <% end %>
