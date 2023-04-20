@@ -11,8 +11,8 @@ RSpec.describe User, type: :model do
   end
 
   describe 'devise modules' do
-    it { should have_db_column(:email).of_type(:string).with_options(null: false, default: "") }
-    it { should have_db_column(:encrypted_password).of_type(:string).with_options(null: false, default: "") }
+    it { should have_db_column(:email).of_type(:string).with_options(null: false, default: '') }
+    it { should have_db_column(:encrypted_password).of_type(:string).with_options(null: false, default: '') }
     it { should have_db_column(:reset_password_token).of_type(:string) }
     it { should have_db_column(:reset_password_sent_at).of_type(:datetime) }
     it { should have_db_column(:remember_created_at).of_type(:datetime) }

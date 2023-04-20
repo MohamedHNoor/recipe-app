@@ -8,7 +8,7 @@ RSpec.describe 'Log In page', type: :feature do
   end
 
   it 'should have a log in form' do
-    expect(page).to have_selector("form")
+    expect(page).to have_selector('form')
   end
 
   it 'should have a log in button' do
