@@ -11,34 +11,34 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name, "Recipe Name", style: "display: block", for: "recipe_name" %>
-    <%= form.text_field :name, id: "recipe_name" %>
+  <div class="mb-3">
+    <%= form.label :name, "Recipe Name", class: "form-label", for: "recipe_name" %>
+    <%= form.text_field :name, id: "recipe_name", class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :preparation_time, "Preparation Time (minutes)", class: "form-label" %>
+    <%= form.number_field :preparation_time, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :cooking_time, "Cooking Time (minutes)", class: "form-label" %>
+    <%= form.number_field :cooking_time, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, "Description", class: "form-label" %>
+    <%= form.text_area :description, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= form.label :preparation_time, "Preparation Time (minutes)", style: "display: block" %>
-    <%= form.number_field :preparation_time %>
-  </div>
-
-  <div class="field">
-    <%= form.label :cooking_time, "Cooking Time (minutes)", style: "display: block" %>
-    <%= form.number_field :cooking_time %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description, "Description", style: "display: block" %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :public, "Make this recipe public?", style: "display: block" %>
-    <%= form.check_box :public, class:"form-check-input", role: "switch" %>
+    <%= form.label :public, "Make this recipe public?", class: "form-label" %>
+    <%= form.check_box :public, class:"form-check-input form-control", role: "switch" %>
   </div>
 
   <%= form.hidden_field :user_id %>
 
   <div class="actions mt-3">
-    <%= form.submit %>
+    <%= form.submit 'Create Recipe', class: "btn btn-outline-secondary" %>
   </div>
 <% end %>
