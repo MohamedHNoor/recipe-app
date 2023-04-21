@@ -1,0 +1,49 @@
+ <div class="container pb-2">
+    <h2 class="text-center">
+       Shopping List
+    </h2>
+
+    <div class="row text-center">
+       <div class="col-6 fw-bold">
+           Amount of food items to buy: <%= @ingredients.length %>
+       </div>
+       <div class="col-6 fw-bold">
+           Total value of food needed: $<%= @total_price %>
+       </div>
+    </div>
+ </div>
+ <div class="container">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr class="text-center">
+          <th>Food</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @ingredients.each do |food, ingredients| %>
+        <tr class="text-center fw-bold">
+          <td><%= food %></td>
+          <td>
+            <% if ingredients.length == 1 %>
+              <span><%= ingredients.first.quantity %> <%= ingredients.first.food.measurement_unit %></span>
+            <% else %>
+              <% total_quantity = ingredients.map(&:quantity).sum %>
+              <span><%= total_quantity %> <%= ingredients.first.food.measurement_unit %></span>
+            <% end %>
+          </td>
+          <td>
+            <% if ingredients.length == 1 %>
+              $<%= ingredients.first.food.price * ingredients.first.quantity %>
+            <% else %>
+              <% total_price = ingredients.map { |ingredient| ingredient.quantity * ingredient.food.price }.sum %>
+              $<%= total_price %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
