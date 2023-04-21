@@ -1,0 +1,19 @@
+<div class="container mb-3 p-2">
+  <div class="d-flex align-items-center justify-content-between">
+    <h1>Recipes</h1>
+    <%= link_to "New Recipe", new_user_recipe_path, class: 'btn btn-outline-secondary' %>
+  </div>
+  <div>
+    <% @recipes.each do |recipe| %>
+      <% if current_user.id == recipe.user_id %>
+        <%= link_to user_recipes_path(recipe), class: "text-decoration-none text-dark" do %>
+          <%= render recipe %>
+        <% end %>
+      <% else %>
+        <%= link_to public_recipes_path(recipe), class: "text-decoration-none text-dark" do %>
+          <%= render recipe %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

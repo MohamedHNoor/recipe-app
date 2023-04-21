@@ -1,0 +1,44 @@
+<%= form_with(model: User.new, scope: :recipe, url: user_recipes_path) do |form| %>
+  <% if form.object.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(form.object.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+      <ul>
+        <% form.object.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :name, "Recipe Name", class: "form-label", for: "recipe_name" %>
+    <%= form.text_field :name, id: "recipe_name", class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :preparation_time, "Preparation Time (minutes)", class: "form-label" %>
+    <%= form.number_field :preparation_time, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :cooking_time, "Cooking Time (minutes)", class: "form-label" %>
+    <%= form.number_field :cooking_time, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, "Description", class: "form-label" %>
+    <%= form.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :public, "Make this recipe public?", class: "form-label" %>
+    <%= form.check_box :public, class:"form-check-input form-control", role: "switch" %>
+  </div>
+
+  <%= form.hidden_field :user_id %>
+
+  <div class="actions mt-3">
+    <%= form.submit 'Create Recipe', class: "btn btn-outline-secondary" %>
+  </div>
+<% end %>

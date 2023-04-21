@@ -1,0 +1,26 @@
+<h1 class="text-center">Add Ingredient</h1>
+<%= form_with(model: [@recipe, @recipe_food], url: user_recipe_recipe_foods_path) do |form| %>
+  <% if recipe_food.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(recipe_food.errors.count, "error") %> prohibited this recipe_food from being saved:</h2>
+
+      <ul>
+        <% recipe_food.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h2>Select Ingredient</h2>
+
+  <p class="Food Name">Food name</p>
+  <%= form.collection_select(:food_id, Food.all, :id, :name, class: "form-select") %>
+
+  <br>
+  <p class="form-label">Quantity</p>
+  <%= form.number_field :quantity, class: "form-control mb-3" %>
+
+  <%= form.submit "Add Ingredient", class: "btn btn-outline-secondary" %>
+
+<% end %> 

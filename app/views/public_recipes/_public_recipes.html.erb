@@ -1,0 +1,14 @@
+<div id="<%= dom_id recipe %>" class="border border-2 mt-3">
+  <div class="d-flex align-items-center justify-content-between p-3">
+    <div>
+      <h2><%= link_to user_recipe_path(recipe.user.id, recipe.id), class: "text-decoration-none text-dark" do %>
+          <%= recipe.name%>
+        <% end %></h2>
+      <p>By: <%= recipe.user.name %></p>
+    </div>
+    <div>
+      <p>Total Food Items: <%= @ingredients.where(recipe: recipe).count %></p>
+      <p>Total Price: $<%= @ingredients.where(recipe: recipe).map {|value| value.food.price * value.quantity}.sum %></p>
+    </div>
+  </div>
+</div>

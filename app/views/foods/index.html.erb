@@ -1,0 +1,31 @@
+<div class="d-flex justify-content-between align-items-center mt-3 p-2">
+  <h1>Food List</h1>
+  <%= link_to "Add Food", new_user_food_path(@user), class: "btn btn-outline-secondary" %>
+</div>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr class="text-center">
+      <th>Name</th>
+      <th>Measurement Unit</th>
+      <th>Unit price</th>
+      <th>Quantity</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @foods.each do |food| %>
+      <tr class="text-center fw-bold">
+        <td><%= food.name %></td>
+        <td><%= food.measurement_unit %></td>
+        <td>$<%= food.price %></td>
+        <td><%= food.quantity %></td>
+        <% if current_user.id == food.user_id %>
+          <td>
+            <%= button_to "Delete", user_food_path(@user, food), method: :delete, class: "btn btn-link", data: { confirm: "Are you sure?" } %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

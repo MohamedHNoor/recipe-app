@@ -1,0 +1,20 @@
+<div class="container mb-3" id="<%= dom_id recipe %>">
+  <div class="row border border-dark border-2 p-2">
+    <div class="d-flex flex-column col-4">
+      <h3>
+        <%= link_to user_recipe_path(recipe.user, recipe), class: "text-decoration-none text-dark" do %>
+          <%= recipe.name%>
+        <% end %>
+      </h3>
+      <% if current_user.id == recipe.user_id %>
+      <%= button_to "Remove", user_recipe_path(recipe.user, recipe), class: "btn btn-link m-0 p-0", method: :delete %>
+      <% end %>
+    </div>
+    <div class="d-flex col-8 align-items-center">
+      <p>
+        <strong>Description:</strong>
+        <%= recipe.description %>
+      </p>
+    </div>
+  </div>
+</div>

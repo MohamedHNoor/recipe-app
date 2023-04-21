@@ -1,0 +1,67 @@
+<div class="container border border-dark border-2 mt-3 rounded p-3">
+  <h2 class="text-center pb-3 fw-bold fs-1"><%= @recipe.name %></h2>
+  <div>
+    <div class="row">
+      <div class="col-9 fs-5">
+        <p>
+          <strong>Preparation Time:&nbsp;</strong>
+          <%= @recipe.preparation_time %> hour
+        </p>
+        <p>
+          <strong>Cooking Time:&nbsp;</strong>
+          <%= @recipe.cooking_time %> hour
+        </p>
+        <p>
+          <strong>steps go here...</strong>
+        </p>
+      </div>
+
+      <div class="col-3">
+        <div>
+          <%= form_with(url: user_recipe_path(@recipe)) do |form| %>
+            Public: <%= form.check_box :public, { checked: @recipe.public, disabled: true }, class: 'text-white bg-dark public' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="d-flex justify-content-between pb-4">
+      <% if current_user && current_user.id == @recipe.user_id %>
+        <%= link_to 'Generate Shopping List', shopping_list_path, class: "btn btn-outline-secondary"  %>
+        <%= link_to 'Add Ingredient', new_user_recipe_recipe_food_path(user_id: @recipe.user_id, recipe_id: @recipe.id), class: "btn btn-outline-secondary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="container">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr class="text-center">
+          <th>Food</th>
+          <th>Quantity</th>
+          <th>Value</th>
+          <% if current_user && current_user.id == @recipe.user_id %>
+          <th>Actions</th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @recipe.recipe_foods.each do |recipe_food| %>
+          <tr class="text-center">
+            <td><%= recipe_food.food.name %></td>
+            <td><%= recipe_food.quantity %> <%= recipe_food.food.measurement_unit%> </td>
+            <td>$<%= recipe_food.food.price * recipe_food.quantity%></td>
+            <% if current_user && current_user.id == @recipe.user_id %>
+            <td>
+              <%= button_to 'Delete', user_recipe_recipe_food_path(recipe_id: @recipe.id, id: recipe_food.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-secondary" %>
+            </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
