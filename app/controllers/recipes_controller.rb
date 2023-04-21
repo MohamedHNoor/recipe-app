@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[public_recipes shopping_list show]
+  before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: %i[show]
 
   def index
     @recipes = if params[:user_id].present?
@@ -31,20 +32,6 @@ class RecipesController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
       end
     end
-  end
-
-  def public_recipes
-    @recipes = Recipe.includes(:user, recipe_foods: [:food]).where(public: true).order(:id)
-    @total_price = {}
-    @recipes.each do |recipe|
-      total_price = recipe.recipe_foods.inject(0) { |sum, e| sum + (e.food.price * e.quantity) }
-      @total_price[recipe.id] = total_price
-    end
-  end
-
-  def shopping_list
-    @ingredient = RecipeFood.includes(:food).where(recipe_id: params[:recipe_id])
-    @total_price = @ingredient.inject(0) { |sum, recipe_food| sum + (recipe_food.food.price * recipe_food.quantity) }
   end
 
   def destroy
