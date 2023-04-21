@@ -41,7 +41,7 @@ RSpec.describe 'Recipe Food page', type: :feature do
   it 'should take you Ingredient form page' do
     visit new_user_recipe_recipe_food_path(@user1.id, @recipe1.id)
     click_on 'Add Ingredient'
-    expect(page).to have_content('New Recipe Food')
+    expect(page).to have_content('Select Ingredient')
   end
 
   it 'should take you to shopping list page' do
