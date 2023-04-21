@@ -27,8 +27,8 @@
 
     <div class="row">
       <div class="d-flex justify-content-between pb-4">
-        <%= link_to 'Generate Shopping List', shopping_list_path(@recipe.id), class: "btn btn-outline-secondary"  %>
-        <% if current_user && current_user.id == @recipe.user_id %>
+      <% if current_user && current_user.id == @recipe.user_id %>
+        <%= link_to 'Generate Shopping List', shopping_list_path, class: "btn btn-outline-secondary"  %>
         <%= link_to 'Add Ingredient', new_user_recipe_recipe_food_path(user_id: @recipe.user_id, recipe_id: @recipe.id), class: "btn btn-outline-secondary" %>
         <% end %>
       </div>
@@ -53,7 +53,7 @@
           <tr class="text-center">
             <td><%= recipe_food.food.name %></td>
             <td><%= recipe_food.quantity %> <%= recipe_food.food.measurement_unit%> </td>
-            <td><%= recipe_food.food.price * recipe_food.quantity%></td>
+            <td>$<%= recipe_food.food.price * recipe_food.quantity%></td>
             <% if current_user && current_user.id == @recipe.user_id %>
             <td>
               <%= button_to 'Delete', user_recipe_recipe_food_path(recipe_id: @recipe.id, id: recipe_food.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-secondary" %>
