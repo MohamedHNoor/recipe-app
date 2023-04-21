@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[public_recipes shopping_list]
+  skip_before_action :authenticate_user!, only: %i[public_recipes shopping_list show]
 
   def index
     @recipes = if params[:user_id].present?
