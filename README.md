@@ -94,7 +94,7 @@ To run the project, execute the following command:
 
 ### Run tests
 
-- Run `bundle exec rspec` to run the tests
+- Run `rspec` to run the tests
 
 <p align="right"><a href="#readme-top">back to top</a></p>
 
