@@ -8,7 +8,7 @@
     <tr class="text-center">
       <th>Name</th>
       <th>Measurement Unit</th>
-      <th>Price</th>
+      <th>Unit price</th>
       <th>Quantity</th>
       <th>Action</th>
     </tr>
@@ -18,7 +18,7 @@
       <tr class="text-center fw-bold">
         <td><%= food.name %></td>
         <td><%= food.measurement_unit %></td>
-        <td><%= food.price %></td>
+        <td>$<%= food.price %></td>
         <td><%= food.quantity %></td>
         <% if current_user.id == food.user_id %>
           <td>
