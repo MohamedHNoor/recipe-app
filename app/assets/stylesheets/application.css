@@ -41,3 +41,12 @@ nav a {
   text-decoration: none;
   margin: 0 10px;
 }
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 700px;
+  height: 90vh;
+  margin: 0 auto;
+  justify-content: center;
+}
